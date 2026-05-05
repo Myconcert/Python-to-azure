@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artemis II | Retorno à Lua</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+        
+        :root {
+            --nasa-blue: #0B3D91;
+            --nasa-red: #FC3D21;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(11, 61, 145, 0.95);
+            padding: 1.2rem 0; /* Aumentado um pouco para melhor equilíbrio */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+        
+        .logo img {
+            height: 90px;   /* ← Tamanho aumentado (era 65px) */
+            transition: height 0.3s;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: white;
+            margin-left: 10px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), 
+                        url('/static/images/lancamento.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 85px; /* Ajustado por causa da logo maior */
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .hero h2 {
+            font-size: 3.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        section {
+            padding: 100px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: #0B3D91;
+        }
+        
+        .about {
+            background: #16213e;
+        }
+        
+        .about p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            text-align: center;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+        
+        .gallery-item::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: white;
+            padding: 25px 15px 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: #0a0a0a;
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Logo Artemis">
+                <h1>ARTEMIS II</h1>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Artemis II: O Retorno da Humanidade à Lua</h2>
+            <p>A primeira missão tripulada do programa Artemis. Quatro astronautas viajarão além da órbita terrestre baixa pela primeira vez em mais de 50 anos.</p>
+            <a href="#galeria" class="btn" style="display:inline-block; background:#FC3D21; color:white; padding:14px 40px; border-radius:50px; text-decoration:none; font-weight:bold; margin-top:20px;">Explorar a Missão</a>
+        </div>
+    </section>
+
+    <section class="about" id="sobre">
+        <h2>Sobre a Missão Artemis II</h2>
+        <p>
+            A <strong>Artemis II</strong> será o primeiro voo tripulado do programa Artemis da NASA. Prevista para 2026, 
+            esta missão marcará o retorno dos astronautas à vizinhança da Lua após mais de cinco décadas desde a última missão Apollo.
+        </p>
+        <p>
+            Diferente da Artemis I (não tripulada), a Artemis II enviará quatro astronautas a bordo da espaçonave Orion. 
+            Eles realizarão um voo de teste ao redor da Lua, passando a aproximadamente 8.000 km da superfície lunar.
+        </p>
+        <p>
+            Esta missão é histórica: será a primeira vez que uma mulher e uma pessoa negra viajarão para o espaço profundo.
+        </p>
+    </section>
+
+    <section class="gallery" id="galeria">
+        <h2>Galeria da Missão Artemis II</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-title="Lançamento da Artemis II">
+                <img src="/static/images/lancamento.jpg" alt="Lançamento Artemis II">
+            </div>
+            <div class="gallery-item" data-title="Foguete SLS">
+                <img src="/static/images/sls-rocket.jpg" alt="Foguete SLS">
+            </div>
+            <div class="gallery-item" data-title="Terra vista da Lua">
+                <img src="/static/images/orbita-lunar.jpg" alt="Terra vista da Lua">
+            </div>
+            <div class="gallery-item" data-title="Equipe de Astronautas">
+                <img src="/static/images/astronauta.jpg" alt="Astronautas Artemis II">
+            </div>
+            <div class="gallery-item" data-title="Lado Oculto da Lua">
+                <img src="/static/images/lado-oculto.jpg" alt="Lado Oculto da Lua">
+            </div>
+            <div class="gallery-item" data-title="Pouso na Lua (Conceito)">
+                <img src="/static/images/pouso.jpg" alt="Pouso Artemis II">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 - Projeto Artemis II | Desenvolvido com Flask</p>
+    </footer>
+</body>
+</html>
